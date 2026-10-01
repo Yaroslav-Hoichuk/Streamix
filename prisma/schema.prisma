@@ -85,7 +85,7 @@ model Rating{
 model Actor{
   id String @id @default(cuid())
   avatar String
-  surname String?
+  surname String @unique
   firstname String
   lastname String
   middlename String?
@@ -122,7 +122,7 @@ model Award{
 model Director{
   id String @id @default(cuid())
   avatar String
-  surname String?
+  surname String @unique
   firstname String
   lastname String
   middlename String?
