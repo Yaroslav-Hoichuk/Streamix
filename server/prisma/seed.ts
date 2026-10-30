@@ -1,5 +1,4 @@
-import { create } from "domain";
-import {prisma} from "../src/prisma.service";
+import {prisma} from "../src/prisma-config/prisma-adapter/prisma.js";
 
 async function seed() {
     // await prisma.award.create({
