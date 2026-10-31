@@ -1,13 +1,12 @@
 import express, { Request, Response } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import { corsOptions } from "./configs/cors-config/corsConfig";
+
 dotenv.config();
 const PORT = process.env.PORT || '3200';
 const app = express();
-const corsOptions = {  
-    origin: 'http://localhost:5173',
-    optionsSuccessStatus: 200
-};
+
 app.use(express.json());
 app.use(cors(corsOptions));
 
