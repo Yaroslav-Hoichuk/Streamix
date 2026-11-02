@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client"
-  output   = "../src/prisma-config/generated/prisma"
+  output   = "../src/configs/prisma-config/generated/prisma"
 }
 
 datasource db {
@@ -8,7 +8,6 @@ datasource db {
 }
 
 
-/* User model for the person interacting with the service */
 model User {
   id String @id @default(cuid())
   email String @unique
@@ -17,7 +16,7 @@ model User {
   createdAt DateTime @default(now())
   userStatus String @default("FREE")
   role String @default("USER") 
-  historyTransaction Transaction[] // an entity that structures the purchase of a service for the user 
+  historyTransaction Transaction[]
   ratings Rating[]
 
   bookmark BookMark[]
@@ -47,7 +46,7 @@ model Purchase{
 
 model Movie{
   id String @id @default(cuid())
-  name String
+  name String @unique
   year Int
   ageBan Int
   description String
