@@ -51,6 +51,7 @@ model Movie{
   ageBan Int
   description String
   trailerLink String
+  cinemaBanner String @unique
   previewImagesLink String[]
   languages String[]
   tags String[]
