@@ -74,6 +74,29 @@ app.get("/movies",authenticate ,async (req: Request, res: Response) => {
   }
 });
 
+app.get("/movies/:id", async (req: Request<{ id: string }>, res: Response) => {
+  try {
+    let response = await prisma.movie.findFirst({
+      where: {
+        id: req.params.id,
+      },
+      include: {
+        rating: true,
+      },
+    });
+    if (!response)
+      res.status(StatusCodes.BAD_REQUEST).json({ mess: "film not found" });
+    res.status(StatusCodes.OK).json(response);
+  } catch (error) {
+    console.log(error);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      message: "failed fetch",
+    });
+  }
+});
+
+
+
 app.post("/auth/login", async (req: Request, res: Response) => {
   try {
     const userInfo: IUser = req.body;
