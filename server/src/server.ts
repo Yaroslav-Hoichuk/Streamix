@@ -74,6 +74,71 @@ app.get("/movies",authenticate ,async (req: Request, res: Response) => {
   }
 });
 
+app.post("/auth/login", async (req: Request, res: Response) => {
+  try {
+    const userInfo: IUser = req.body;
+
+    if (!userInfo.password || !userInfo.email)
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ mess: "email or password field is empty" });
+
+    const user = await prisma.user.findFirst({
+      where: {
+        email: userInfo.email,
+      },
+    });
+
+    if (!user)
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json("wrong email or password");
+    const comparePasswords = await bcrypt.compare(
+      userInfo.password,
+      user.password,
+    );
+    const { password, ...userWithoutPass } = user;
+
+    if (!comparePasswords)
+      return res.status(StatusCodes.BAD_REQUEST).json("wrong pass");
+    const token = jwt.sign(
+      { id: userWithoutPass.id },
+      process.env.SECRET_KEY!,
+      {
+        expiresIn: "10m",
+      },
+    );
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      maxAge: 10* 60 * 1000,
+      sameSite: "strict",
+    });
+    return res.status(StatusCodes.OK).json({ user: userWithoutPass, token: token });
+  } catch (error) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ err: error });
+  }
+});
+
+app.get("/auth/me", authenticate, async (req: AuthRequest, res: Response) => {
+  try {
+   
+    const user = await prisma.user.findUnique({
+      where:{
+        id: req.user!.id
+      },
+      omit: {
+        password: true
+      }
+    });
+
+    return res.status(StatusCodes.OK).json({ mess: user });
+  } catch (error) {
+    return res.status(StatusCodes.UN_AUTHORIZED).json({ err: error });
+  }
+});
+
+
 app.post("/auth/register", async (req: Request, res: Response) => {
   const userInfo: IUser = req.body;
   const newUser = await prisma.user.create({
