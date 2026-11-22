@@ -1,23 +1,47 @@
+import { useState } from "react";
+import logo from "../public/logo.png";
+
 export function Header() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  function toggleBurgerMenu() {
+    setIsOpen((prev) => !prev);
+  }
+
   return (
-    <header className="grid  grid-cols-4 grid-rows-2 grid- p-1.5 justify-between">
-        <div className="col-span-2 row-span-1 text-3xl text-amber-50">
-            <span className="font-semibold">Stream</span>
-            <span className="text-red-700 font-semibold">ix</span>
-        </div>
-        <input
-            type="text"
-            placeholder="Search..."
-            className="text-amber-50 outline-none row-2 col-span-3"
-        />
-        <div id="dropdown-list" className="inline-block group relative col-start-4">
-            <span className="">Profile</span>
-            <div id="dropDown-content" className="hidden group-hover:block absolute bg-blue-300 min-w-24 z-50">
-                <button className="block w-full text-left pl-1 hover:bg-blue-500">Profile</button>
-                <button className="block w-full text-left pl-1 hover:bg-blue-500">Settings</button>
-                <button className="block w-full text-left pl-1 hover:bg-blue-500">Exit</button>
-            </div>
-        </div>
+    <header className="flex justify-between items-center px-2 pt-5 pb-2.75 relative">
+      <div id="logo-Container" className="flex items-center gap-1">
+        <span>
+          <img src={logo} alt="Streamix logo" className="h-8" />
+        </span>
+        <span className="font-bold">
+          Stream<span className="text-red-600">ix</span>
+        </span>
+      </div>
+      <div
+        id="menu"
+        className={`font-bold text-xs ${
+          isOpen ? "grid grid-cols-2 grid-rows-2 relative top-2" : "hidden"
+        } md:flex md:static md:flex-row md:p-0 md:shadow-none md:gap-4`}
+      >
+        <a href="#home" className="col-span-1 row-span-1">
+          Home
+        </a>
+        <a href="#MoviesNShows" className="col-span-1 row-span-1">
+          Movies & Shows
+        </a>
+        <a href="#Support" className="col-span-1 row-2">
+          Support
+        </a>
+        <a href="#Subscriptions" className="row-2 col-span-2">
+          Subscriptions
+        </a>
+      </div>
+      <nav className="flex items-center gap-4">
+        <button onClick={toggleBurgerMenu} className="md:hidden" aria-expanded={isOpen}>
+          <span className="material-symbols-outlined">{"menu"}</span>
+        </button>
+      </nav>
     </header>
   );
 }
