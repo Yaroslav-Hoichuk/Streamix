@@ -1,12 +1,10 @@
-import './App.css'
-import { Footer } from './footer/Footer';
-import { Header } from './header/Header';
+import "./App.css";
+import { HomePage } from "./homePage/homePage";
 
 export default function App() {
   return (
     <>
-    <Header />
-    <Footer />
+      <HomePage />
     </>
   );
 }
