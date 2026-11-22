@@ -1,0 +1,7 @@
+#bannerContainer {
+  background-image: url("../public/welcome_banner.png");
+  background-size: cover;
+}
+body {
+  background-color: #141414;
+}
