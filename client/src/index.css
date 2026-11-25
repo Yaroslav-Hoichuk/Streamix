@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+@theme {
+  --breakpoint-sm: 36rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 62rem;
+  --breakpoint-xl: 75rem;
+  --breakpoint-laptop: 90rem;
+  --breakpoint-3xl: 120rem;
+}
+
 @layer components {
   .device-info {
     @apply flex items-center gap-2;
@@ -10,11 +19,12 @@
   .device-container {
     @apply border-1 mt-5 p-6 rounded-[10px] border-[#262626] bg-[#0f0f0f] bg-linear-to-tr to-[#e5000015];
   }
-  .hr-linear-red {
-    @apply border-0 my-5 h-[1px] bg-linear-to-r from-0% via-[#e50000] via-17% to-100%;
-  }
+
   .subparagraph {
     @apply text-sm text-[#999999];
+  }
+  .subparagraph-lg {
+    @apply text-[22px] text-[#999999];
   }
   .button {
     @apply text-sm px-5 py-3.5 rounded-md;
