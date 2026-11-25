@@ -9,31 +9,39 @@ export function Header() {
   }
 
   return (
-    <header className="flex justify-between items-center px-2 pt-5 pb-2.75 relative">
+    <header
+      className="flex justify-between items-center px-2 pt-5 pb-2.75 relative
+    laptop:px-20"
+    >
       <div id="logo-Container" className="flex items-center gap-1">
         <span>
-          <img src={logo} alt="Streamix logo" className="h-8" />
+          <img src={logo} alt="Streamix logo" className="h-8 laptop:h-10" />
         </span>
-        <span className="font-bold">
+        <span className="font-bold laptop:text-2xl">
           Stream<span className="text-red-600">ix</span>
         </span>
       </div>
       <div
         id="menu"
-        className={`font-bold text-xs ${
-          isOpen ? "grid grid-cols-2 grid-rows-2 relative top-2" : "hidden"
-        } md:flex md:static md:flex-row md:p-0 md:shadow-none md:gap-4`}
+        className={`text-xs rounded-xl [&>a:hover]:text-[#e50000] [&>a:hover]:duration-300 ${
+          isOpen ? "" : "hidden"
+        } bg-[#0F0F0F] grid grid-cols-2 grid-rows-2 relative p-2 gap-1 border-2 border-[#1F1F1F]
+          laptop:flex laptop:gap-5 laptop:text-xl laptop:p-4
+        `}
       >
-        <a href="#home" className="col-span-1 row-span-1">
+        <a href="#home" className=" ">
           Home
         </a>
-        <a href="#MoviesNShows" className="col-span-1 row-span-1">
+
+        <a href="#MoviesNShows" className="">
           Movies & Shows
         </a>
-        <a href="#Support" className="col-span-1 row-2">
+
+        <a href="#Support" className="">
           Support
         </a>
-        <a href="#Subscriptions" className="row-2 col-span-2">
+
+        <a href="#Subscriptions" className="">
           Subscriptions
         </a>
       </div>
